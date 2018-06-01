@@ -35,7 +35,7 @@ int callback(void *data, int dataSize, void *callbackData, int nBytes)
 
 The InitializeMarcoPolo() function takes in a 2D array of integers, similar to the pipe() system call. 
 
- Let's suppose Bob and Alice are processes that live on different computers, and they both have their own IPs and ports. What if Alice wants to find Bob's contact information, using only his name? Let's use findProcess, which is wrapped around MarcoPolo!
+Let's suppose Bob and Alice are processes that live on different computers, and they both have their own IPs and ports. What if Alice wants to find Bob's contact information, using only his name? Let's use `FindProcess`, which is wrapped around MarcoPolo!
  
 
 ```C
