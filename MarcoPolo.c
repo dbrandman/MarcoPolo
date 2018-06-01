@@ -18,27 +18,12 @@
 
 int InitializeMarcoPolo(int s[2], char *ip, int port)
 {
-	// Initialize Socket
-	int s = socket(AF_INET, SOCK_DGRAM, 0);
-	if (s < 0) {
-		printf("Could not create socket: %s\n", strerror(errno));
-		return -1;	
-	}
-
-	// Make socket reusable
-	int enable = 1;
-	if (setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0) {
-		printf("Setsockopt(SO_REUSEADDR): %s\n", strerror(errno));
-		return -1;
-	}
-
 	// Populate the sockaddr_in structure given the ip and port
 	struct sockaddr_in addr = {0};
 	if (PopulateSockaddr_in(&addr, ip, port))
 		return -1;
 
 	int enable = 1;
-
 	// Both sockets must be initialized, set reusable, and then multicast enabled
 
 	for (int i = 0; i < 2; i++)
@@ -62,7 +47,7 @@ int InitializeMarcoPolo(int s[2], char *ip, int port)
 		mreq.imr_multiaddr.s_addr = multiLocal->sin_addr.s_addr;
 		mreq.imr_interface.s_addr = htonl(INADDR_ANY);
 		if(setsockopt(s[i], IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq, sizeof(mreq)) < 0) {
-			printf("Establishing multicast for socket %d: %s\n", s[i], strerror(errno));
+			printf("Unable to establish multicast for socket %d: %s\n", s[i], strerror(errno));
 			return -1;
 		}
 	}
