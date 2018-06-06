@@ -1,5 +1,3 @@
-
-
 #include "MarcoPolo.h"
 #include "FindProcess.h"
 #include <unistd.h>
@@ -10,7 +8,7 @@
 #include <poll.h>
 
 void *FindProcessListener(void *voidInput);
-static void PrintFindProcessStruct(FindProcessStruct *fps);
+// static void PrintFindProcessStruct(FindProcessStruct *fps);
 
 int FindProcess(FindProcessStruct *s, char *name, struct sockaddr_in *addr)
 {
@@ -108,7 +106,7 @@ void *FindProcessListener(void *voidInput)
 	}	
 }
 
-static void PrintFindProcessStruct(FindProcessStruct *fps)
-{
-	printf("Name %s, FD: (%d, %d)\n", fps->name, fps->fd[0], fps->fd[1]);
-}
+// static void PrintFindProcessStruct(FindProcessStruct *fps)
+// {
+// 	printf("Name %s, FD: (%d, %d)\n", fps->name, fps->fd[0], fps->fd[1]);
+// }

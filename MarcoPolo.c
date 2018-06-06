@@ -16,7 +16,7 @@
 #define DEFAULT_RECEIVE_BUFFER_SIZE 2048
 
 
-int InitializeMarcoPolo(int s[2], char *ip, int port)
+int InitializeMarcoPolo(int fd[2], char *ip, int port)
 {
 	// Populate the sockaddr_in structure given the ip and port
 	struct sockaddr_in addr = {0};
@@ -25,19 +25,18 @@ int InitializeMarcoPolo(int s[2], char *ip, int port)
 
 	int enable = 1;
 	// Both sockets must be initialized, set reusable, and then multicast enabled
-
 	for (int i = 0; i < 2; i++)
 	{
 		// Initialize the socket
-		s[i] = socket(AF_INET, SOCK_DGRAM, 0);
-		if (s[i] < 0) {
-			printf("Could not create socket %d: %s\n", s[i], strerror(errno));
+		fd[i] = socket(AF_INET, SOCK_DGRAM, 0);
+		if (fd[i] < 0) {
+			printf("Could not create socket %d: %s\n", fd[i], strerror(errno));
 			return -1;	
 		}
 
 		// Make the socket reusable
-		if (setsockopt(s[i], SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0) {   
-			printf("Setsockopt(SO_REUSEADDR) for socket %d: %s\n", s[i], strerror(errno));
+		if (setsockopt(fd[i], SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0) {   
+			printf("Setsockopt(SO_REUSEADDR) for socket %d: %s\n", fd[i], strerror(errno));
 			return -1; 
 		}   
 
@@ -46,20 +45,20 @@ int InitializeMarcoPolo(int s[2], char *ip, int port)
 		struct ip_mreq mreq;
 		mreq.imr_multiaddr.s_addr = multiLocal->sin_addr.s_addr;
 		mreq.imr_interface.s_addr = htonl(INADDR_ANY);
-		if(setsockopt(s[i], IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq, sizeof(mreq)) < 0) {
-			printf("Unable to establish multicast for socket %d: %s\n", s[i], strerror(errno));
+		if(setsockopt(fd[i], IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq, sizeof(mreq)) < 0) {
+			printf("Establishing multicast for socket %d: %s\n", fd[i], strerror(errno));
 			return -1;
 		}
 	}
 
 	// Bind the first socket
-	if(bind(s[0], (const struct sockaddr *) &addr, sizeof(struct sockaddr_in)) < 0) { 
+	if(bind(fd[0], (const struct sockaddr *) &addr, sizeof(struct sockaddr_in)) < 0) { 
 		printf("Bind AF_INET socket: %s\n", strerror(errno)); 
 		return -1; 
 	}
 
 	// Connect the second socket
-	if(connect(s[1], (const struct sockaddr *) &addr, sizeof(struct sockaddr_in))) {
+	if(connect(fd[1], (const struct sockaddr *) &addr, sizeof(struct sockaddr_in))) {
 		printf("Connect AF_INET: %s\n", strerror(errno));
 		return -1;
 	}

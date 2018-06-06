@@ -1,5 +1,4 @@
 /**
-<<<<<<< HEAD
  * @file
  * @brief MarcoPolo -- setting up rapid communication between processes using multicast / broadcast
  * @authors David Brandman
@@ -19,11 +18,7 @@
 #include <netinet/in.h>  // for struct sockaddr_in
 
 int InitializeMarcoPolo(int fd[2], char *ip, int port);
-
 int Broadcast(int fd, void *data, int dataSize);
-
 int Receive(int fd, int (*callback)(void *data, int dataSize, void *callbackData, int nBytes), void *callbackData, int nBytes);
-
 int PopulateSockaddr_in(struct sockaddr_in *addr, char *ip, int port);
-
 void PrintSockaddr_in(struct sockaddr_in *addr);
