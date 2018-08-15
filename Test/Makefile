@@ -5,13 +5,18 @@ INCLUDES = -I../\
 		 	../FindProcess.c
 
 LIBRARIES = -lrt -lpthread
+BUILD_DIR = Build/
 
-all: MarcoPolo FindProcess
+all: Test_MarcoPolo Test_FindProcess
 
-MarcoPolo:
-	$(CC) -o Test_MarcoPolo Test_MarcoPolo.c $(INCLUDES) $(LIBRARIES) 
-FindProcess:
-	$(CC) -o Test_FindProcess Test_FindProcess.c $(INCLUDES) $(LIBRARIES) 
+Test_MarcoPolo:
+	mkdir -p $(BUILD_DIR)
+	$(CC) -o $@ $@.c $(INCLUDES) $(LIBRARIES)
+	mv -f $@ $(BUILD_DIR)
+Test_FindProcess:
+	mkdir -p $(BUILD_DIR)
+	$(CC) -o $@ $@.c $(INCLUDES) $(LIBRARIES)
+	mv -f $@ $(BUILD_DIR)
 
 clean:
-	rm -f Test_FindProcess Test_MarcoPolo
+	rm -rf $(BUILD_DIR)

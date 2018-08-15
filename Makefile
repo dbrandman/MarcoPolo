@@ -10,11 +10,11 @@
 # 
 # 	$ make clean
 
-CC 		= gcc
+CC 			= gcc
 CFLAGS 		= -Wall -Werror -fpic
 LDFLAGS 	= -shared
-RM 		= rm -f
 TARGET_LIB 	= libmarcopolo.so
+BUILD_DIR 	= Build/
 
 ifeq ($(include), FindProcess)
 	SRCS = MarcoPolo.c FindProcess.c
@@ -30,8 +30,10 @@ all: MarcoPolo
 MarcoPolo: 
 	$(CC) -c $(CFLAGS) $(SRCS)
 	$(CC) $(LDFLAGS) -o $(TARGET_LIB) $(OBJS)
-	$(RM) $(OBJS)
+	rm -f $(OBJS)
+	mkdir -p $(BUILD_DIR)
+	mv -f $(TARGET_LIB) $(BUILD_DIR)
 
 .PHONY: clean
 clean:
-	-$(RM) $(TARGET_LIB) $(OBJS)
+	rm -rf $(OBJS) $(BUILD_DIR)
