@@ -22,19 +22,22 @@ int FindProcess(FindProcessStruct *s, char *name, struct sockaddr_in *addr)
     struct pollfd toPoll = {.fd = s->fd[0], .events = POLLIN};
 	while (1) {
 		
-		if (Broadcast(s->fd[1], &outgoingStruct, sizeof(ProcessInfo)))
+		if (Broadcast(s->fd[1], &outgoingStruct, sizeof(ProcessInfo)) < 0)
 			return -1;
-	
+			
 		usleep(MICROSECONDS_BETWEEN_BROADCASTS);
+
 		while(poll(&toPoll, 1, 0) > 0) {
 
 			int nBytes = read(s->fd[0], &incomingStruct, sizeof(incomingStruct));
 
+			// Make sure that what we're reading is valid
 			if (nBytes < 0) {
 				printf("[FindProcess] Error with reading : %s\n", strerror(errno));
 				continue;
 			}
-			// First check to see if the struct is the correct length. If not, abort
+			
+			// Second, check to see if the struct is the correct length. If not, abort
 			if (nBytes != sizeof(incomingStruct))
 				continue;
 
@@ -62,6 +65,7 @@ int InitializeFindProcessListener(FindProcessStruct *fps, char *name, char *mult
 	strcpy(fps->name, name);
 	PopulateSockaddr_in(&fps->addr, ip, port);
 
+	// Launch the thread
     pthread_t initializeFindProcessListenerThread;
     pthread_create(&initializeFindProcessListenerThread, NULL, &FindProcessListener, fps);
 
@@ -82,11 +86,11 @@ void *FindProcessListener(void *voidInput)
 	while (1) {
 		int nBytes = read(fps->fd[0], &incomingStruct, sizeof(incomingStruct));
 
-		if (nBytes < 0)
-		{
+		if (nBytes < 0) {
 			printf("[FindProcessListener] Error with reading: %s\n", strerror(errno));
 			continue;
 		}
+
 		// First check to see if the struct is the correct length. If not, abort
 		if (nBytes != sizeof(incomingStruct))
 			continue;

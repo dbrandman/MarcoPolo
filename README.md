@@ -52,3 +52,12 @@ PrintSockaddr_in(&addr); // Prints: 127.0.0.1 Port 7000
 
 ```
 
+## Watch out!
+Make sure that you've enabled multicast on your device:
+```
+route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
+```
+
+## Unit tests
+
+Navigate to the Test folder, and type `make`
