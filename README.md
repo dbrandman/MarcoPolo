@@ -88,7 +88,7 @@ Please note that some of the demos have dependencies, which need to be installed
 To build the examples, in the root MarcoPolo/ folder run:
 
 ```shell
-make example
+make demo
 ```
 
 
