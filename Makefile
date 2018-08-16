@@ -8,12 +8,15 @@ CFLAGS 		= -Wall -Werror -fpic
 LDFLAGS 	= -shared
 TARGET_LIB 	= libmarcopolo.so
 
-BUILD_DIR 	= Build/
+SOURCE_DIR 	= Source
+BUILD_DIR 	= Build
+TEST_DIR 	= Test
+DEMO_DIR 	= Demo
 
 INSTALL_LIB = /usr/local/lib
 INSTALL_INC = /usr/local/include
 
-SOURCES		= MarcoPolo.c FindProcess.c
+SOURCES		= $(SOURCE_DIR)/MarcoPolo.c $(SOURCE_DIR)/FindProcess.c
 OBJECTS		= MarcoPolo.o FindProcess.o
 
 .PHONY: build
@@ -37,8 +40,10 @@ install:
 		echo "Please build the library first with \`make build\`."; 		\
 	else 																	\
 		sudo cp -v -f Build/libmarcopolo.so $(INSTALL_LIB)/libmarcopolo.so; \
-		sudo cp -v -f MarcoPolo.h /usr/local/include/MarcoPolo.h; 			\
-		sudo cp -v -f FindProcess.h /usr/local/include/FindProcess.h; 		\
+		sudo cp -v -f \
+			$(SOURCE_DIR)/MarcoPolo.h /usr/local/include/MarcoPolo.h; 			\
+		sudo cp -v -f \
+			$(SOURCE_DIR)/FindProcess.h /usr/local/include/FindProcess.h; 		\
 		sudo ldconfig -n $(INSTALL_LIB); 									\
 	fi
 
@@ -51,5 +56,7 @@ uninstall:
 .PHONY: clean
 clean:
 	rm -rf $(OBJECTS) $(BUILD_DIR)
-	make -C Test/ clean
-	make -C Demo/ clean
+	make -C $(TEST_DIR) clean
+	make -C $(DEMO_DIR) clean
+
+all: build test demo

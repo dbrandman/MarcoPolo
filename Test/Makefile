@@ -3,8 +3,8 @@
 CC 			= gcc
 BUILD_DIR 	= Build/
 
-INCLUDES 	= -I../
-SOURCES 	= ../MarcoPolo.c ../FindProcess.c
+INCLUDES 	= -I../Source
+SOURCES 	= ../Source/MarcoPolo.c ../Source/FindProcess.c
 LIBRARIES 	= -lrt -lpthread
 
 all: Test_MarcoPolo Test_FindProcess
