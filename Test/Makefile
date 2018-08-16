@@ -1,21 +1,22 @@
+# Build MarcoPolo tests.
 
-CC = gcc
-INCLUDES = -I../\
-			../MarcoPolo.c \
-		 	../FindProcess.c
+CC 			= gcc
+BUILD_DIR 	= Build/
 
-LIBRARIES = -lrt -lpthread
-BUILD_DIR = Build/
+INCLUDES 	= -I../
+SOURCES 	= ../MarcoPolo.c ../FindProcess.c
+LIBRARIES 	= -lrt -lpthread
 
 all: Test_MarcoPolo Test_FindProcess
 
 Test_MarcoPolo:
 	mkdir -p $(BUILD_DIR)
-	$(CC) -o $@ $@.c $(INCLUDES) $(LIBRARIES)
+	$(CC) -o $@ $@.c $(SOURCES) $(INCLUDES) $(LIBRARIES)
 	mv -f $@ $(BUILD_DIR)
+
 Test_FindProcess:
 	mkdir -p $(BUILD_DIR)
-	$(CC) -o $@ $@.c $(INCLUDES) $(LIBRARIES)
+	$(CC) -o $@ $@.c $(SOURCES) $(INCLUDES) $(LIBRARIES)
 	mv -f $@ $(BUILD_DIR)
 
 clean:
