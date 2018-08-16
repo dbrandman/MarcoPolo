@@ -93,7 +93,13 @@ make demo
 
 
 ## Test
-In the root MarcoPolo/ folder, run `make test`. The tests will be built and placed into Test/Build/.
+In the root MarcoPolo/ folder, run:
+
+```shell
+make test
+```
+
+The tests will be built and placed into Test/Build/.
 
 
 
