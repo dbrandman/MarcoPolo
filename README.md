@@ -91,6 +91,8 @@ To build the examples, in the root MarcoPolo/ folder run:
 make demo
 ```
 
+The demos will be built and placed into Demo/Build/.
+
 
 ## Test
 In the root MarcoPolo/ folder, run:
