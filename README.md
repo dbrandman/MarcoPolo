@@ -79,8 +79,11 @@ The built shared library will be placed in the Build/ folder.
 
 
 
-## Examples
+## Demos
 There are some examples available that showcase MarcoPolo in different use-cases. This is still a work in progress, so more examples will be added in the future. Pull-requests with new examples welcome!
+
+Please note that some of the demos have dependencies, which need to be installed first. The dependencies are:
+* ZeroMQ
 
 To build the examples, in the root MarcoPolo/ folder run:
 
