@@ -1,6 +1,6 @@
 # Build MarcoPolo tests.
 
-CC 			= gcc
+CC 		= gcc
 BUILD_DIR 	= Build/
 
 INCLUDES 	= -I../Source

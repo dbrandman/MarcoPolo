@@ -2,8 +2,8 @@
 #
 # Please see the README for more info on the build process.
 
-CC 			= gcc
-RM 			= rm -f
+CC 		= gcc
+RM 		= rm -f
 CFLAGS 		= -Wall -Werror -fpic
 LDFLAGS 	= -shared
 TARGET_LIB 	= libmarcopolo.so
@@ -13,8 +13,8 @@ BUILD_DIR 	= Build
 TEST_DIR 	= Test
 DEMO_DIR 	= Demo
 
-INSTALL_LIB = /usr/local/lib
-INSTALL_INC = /usr/local/include
+INSTALL_LIB 	= /usr/local/lib
+INSTALL_INC 	= /usr/local/include
 
 SOURCES		= $(SOURCE_DIR)/MarcoPolo.c $(SOURCE_DIR)/FindProcess.c
 OBJECTS		= MarcoPolo.o FindProcess.o
@@ -36,15 +36,15 @@ demo:
 	make -C Demo/
 
 install:
-	@if ! [ -e Build/libmarcopolo.so ]; then 								\
+	@if ! [ -e Build/libmarcopolo.so ]; then 					\
 		echo "Please build the library first with \`make build\`."; 		\
-	else 																	\
-		sudo cp -v -f Build/libmarcopolo.so $(INSTALL_LIB)/libmarcopolo.so; \
-		sudo cp -v -f \
-			$(SOURCE_DIR)/MarcoPolo.h /usr/local/include/MarcoPolo.h; 			\
-		sudo cp -v -f \
-			$(SOURCE_DIR)/FindProcess.h /usr/local/include/FindProcess.h; 		\
-		sudo ldconfig -n $(INSTALL_LIB); 									\
+	else 										\
+		sudo cp -v -f Build/libmarcopolo.so $(INSTALL_LIB)/libmarcopolo.so; 	\
+		sudo cp -v -f 								\
+			$(SOURCE_DIR)/MarcoPolo.h /usr/local/include/MarcoPolo.h; 	\
+		sudo cp -v -f 								\
+			$(SOURCE_DIR)/FindProcess.h /usr/local/include/FindProcess.h;	\
+		sudo ldconfig -n $(INSTALL_LIB); 					\
 	fi
 
 uninstall:

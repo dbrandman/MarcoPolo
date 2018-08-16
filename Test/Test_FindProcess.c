@@ -7,12 +7,14 @@ int main()
 	FindProcessStruct alice = {0};
 	FindProcessStruct bob = {0};
 
-	if( InitializeFindProcessListener(&alice, "ALICE", "239.1.1.1", 5000, "127.0.0.1", 60000)){
+	if(InitializeFindProcessListener(&alice, "ALICE", "239.1.1.1", 5000, "127.0.0.1", 60000))
+	{
 		printf("Could not initialize ProcessListener Alice\n");
 		exit(1);
 	}
 
-	if ( InitializeFindProcessListener(&bob, "BOB", "239.1.1.1", 5000, "127.0.0.1", 7000)) {
+	if(InitializeFindProcessListener(&bob, "BOB", "239.1.1.1", 5000, "127.0.0.1", 7000))
+	{
 		printf("Could not initialize ProcessListener Bob");
 		exit(1);
 	}
@@ -23,7 +25,8 @@ int main()
 
 	// Now populate the addr structure based on Bob's contact information
 	struct sockaddr_in addr = {0};
-	if(FindProcess(&alice, "BOB", &addr)){
+	if(FindProcess(&alice, "BOB", &addr))
+	{
 		printf("Could not run FindProcess\n");
 		exit(1);
 	}

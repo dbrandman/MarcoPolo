@@ -1,7 +1,7 @@
 # Build MarcoPolo examples.
 
-CC 			= gcc
-BUILD_DIR 	= Build/
+CC		= gcc
+BUILD_DIR	= Build/
 
 INCLUDES 	= -I../Source
 SOURCES 	= ../Source/MarcoPolo.c ../Source/FindProcess.c
